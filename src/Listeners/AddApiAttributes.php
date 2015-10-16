@@ -21,7 +21,7 @@ class AddApiAttributes
 
     public function addSMTP(ApiAttributes $event)
     {
-        if ($event->serializer instanceof ForumSerializer) {
+        if ($event->actor->isAdmin() && $event->serializer instanceof ForumSerializer) {
             $event->attributes['mailEncryption'] = $this->settings->get('mail_encryption');
             $event->attributes['mailPort'] = (int) $this->settings->get('mail_port');
             $event->attributes['mailHost'] = $this->settings->get('mail_host');
